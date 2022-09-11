@@ -2,6 +2,8 @@ const targets = document.querySelectorAll(".color-box");
 const startButton = document.querySelector(".start-button");
 const flashing = document.querySelector(".flashing");
 const levelTarget = document.querySelector(".level");
+const flashSound = new Audio('./simonSound1.mp3');
+const clickSound = new Audio('./simonSound4.mp3');
 targets.forEach((target) => {
   target.addEventListener("click", targetClick);
 });
@@ -13,6 +15,7 @@ async function targetClick({ target }) {
   if (block) return;
   const sequenceTarget = sequenceClone.shift();
   target.classList.add("flash");
+  clickSound.play();
   setTimeout(() => {
     target.classList.remove("flash");
   }, 100);
@@ -42,6 +45,7 @@ async function flash() {
   sequenceClone = [...sequence];
   for (const target of sequence) {
     target.classList.add("flash");
+    flashSound.play();
     await new Promise((resolve) => {
       setTimeout(() => {
         target.classList.remove("flash");
@@ -75,3 +79,4 @@ function delay(ms) {
     setTimeout(resolve, ms);
   });
 }
+
